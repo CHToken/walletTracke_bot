@@ -1,4 +1,4 @@
-import { timeAgo } from '../utils/query.utils';
+import { timeAgo } from '../utils/queryUtils';
 
 export const showTransactionDetails = async (data: any) => {
   console.log('herebefore crash');

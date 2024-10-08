@@ -1,4 +1,4 @@
-export class saveTokenDTO {
+export class SaveTokenDTO {
   tokenContractAddress: string;
   tokenPairContractAddress: string;
   swapHashes: string[];
