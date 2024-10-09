@@ -36,15 +36,19 @@ export class TrackerBotService {
       if (msg.text?.trim() === '/start') {
         const welcomeMessage = `Hi @${msg.from?.username || 'User'}, welcome to MEV Wallet Tracker bot!`;
         await this.trackerBot.sendMessage(msg.chat.id, welcomeMessage, {
-          parse_mode: 'Markdown',
+          parse_mode: 'MarkdownV2',
         });
         console.log(`Sent welcome message to chat ID ${msg.chat.id}`);
+      } else if (msg.text?.trim() === '/track') {
+        console.log(`Received /track command from chat ID ${msg.chat.id}`);
+        await this.trackerBot.sendMessage(msg.chat.id, 'Tracking started...', {
+          parse_mode: 'MarkdownV2',
+        });
+        await this.queryBlockchain();
       } else {
         console.log('Message not recognized, executing blockchain query...');
+        await this.queryBlockchain();
       }
-
-      // Query blockchain after receiving the message
-      await this.queryBlockchain();
     } catch (error) {
       console.error('Error in handleReceivedMessages:', error);
       await this.trackerBot.sendMessage(
