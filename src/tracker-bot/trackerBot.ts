@@ -13,6 +13,11 @@ dotenv.config();
 
 const token = process.env.TELEGRAM_TOKEN;
 
+// Function to escape special characters in MarkdownV2
+function escapeMarkdownV2(text: string): string {
+  return text.replace(/([_*[\]()~`>#+\-=|{}.!\\])/g, '\\$1');
+}
+
 export class TrackerBotService {
   private trackerBot: TelegramBot;
 
@@ -34,7 +39,8 @@ export class TrackerBotService {
       await this.trackerBot.sendChatAction(msg.chat.id, 'typing');
 
       if (msg.text?.trim() === '/start') {
-        const welcomeMessage = `Hi @${msg.from?.username || 'User'}, welcome to MEV Wallet Tracker bot!`;
+        const username = escapeMarkdownV2(msg.from?.username || 'User');
+        const welcomeMessage = `Hi @${username}, welcome to MEV Wallet Tracker bot\\!`;
         await this.trackerBot.sendMessage(msg.chat.id, welcomeMessage, {
           parse_mode: 'MarkdownV2',
         });
