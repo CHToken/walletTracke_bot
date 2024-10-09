@@ -12,6 +12,26 @@ export function getTimestamps() {
   return { currentTime, sixHoursAgo };
 }
 
+export function getTimestampsForFiveMinutes() {
+  const currentTime = Math.floor(Date.now() / 1000);
+  const fiveMinutesAgo = currentTime - 5 * 60;
+  return { currentTime, fiveMinutesAgo };
+}
+
+export function isWithinThirtyMinutes(
+  timestamp1: number,
+  timestamp2: number,
+): boolean {
+  const thirtyMinutesInSeconds = 1800;
+  return Math.abs(timestamp1 - timestamp2) <= thirtyMinutesInSeconds;
+}
+
+export function getTimestampsForThirtyMinutes() {
+  const currentTime = Math.floor(Date.now() / 1000);
+  const thirtyMinutesAgo = currentTime - 30 * 60;
+  return { currentTime, thirtyMinutesAgo };
+}
+
 export function timeAgo(timestamp: number): string {
   const diffInSeconds = Math.floor(Date.now() / 1000) - timestamp;
   if (diffInSeconds < 60) return `${diffInSeconds} secs ago`;

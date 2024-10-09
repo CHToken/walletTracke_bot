@@ -18,6 +18,7 @@ export interface Token extends Document {
 // Define TypeScript interface for User schema
 export interface User extends Document {
   userChatId: number;
+  trackingActive: boolean;
 }
 
 const tokenSchema = new Schema<Token>({
@@ -36,6 +37,7 @@ const tokenSchema = new Schema<Token>({
 
 const userSchema = new Schema<User>({
   userChatId: { type: Number, unique: true },
+  trackingActive: { type: Boolean, default: false },
 });
 
 export const TokenModel = model<Token>('Token', tokenSchema);
