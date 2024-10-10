@@ -47,7 +47,8 @@ export class TrackerBotService {
         console.log(`Sent welcome message to chat ID ${msg.chat.id}`);
       } else if (msg.text?.trim() === '/track') {
         console.log(`Received /track command from chat ID ${msg.chat.id}`);
-        await this.trackerBot.sendMessage(msg.chat.id, 'Tracking started...', {
+        const trackMessage = escapeMarkdownV2('Tracking started...');
+        await this.trackerBot.sendMessage(msg.chat.id, trackMessage, {
           parse_mode: 'MarkdownV2',
         });
         await this.queryBlockchain();
